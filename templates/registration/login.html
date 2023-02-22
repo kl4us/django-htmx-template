@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extra-style %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row row-eq-height">
+    <div class="col-lg-6 mx-auto mb-4 mt-4">
+      <div class="jumbotron shadow-lg bg-white rounded h-100 pb-1 pt-4">
+        <form role="form" method="post" action="{% url 'auth_login' %}">
+          {% csrf_token %} 
+          <input type="hidden" name="next" value="{{ next }}" />
+          <h2>{% trans "Log in" %}</h2>
+          <hr class="colorgraph">
+
+          {% include "includes/_form.html" %}
+              
+          <div class="form-group">
+            <div class="custom-control custom-checkbox custom-control-inline">
+              <input type="checkbox" class="custom-control-input" id="remember_me" name="remember_me" />
+              <label class="custom-control-label" for="remember_me">{% trans "Ricordami" %}</label>            
+            </div>             
+            <a href="{% url 'auth_password_reset' %}" class="text-decoration-none mt-2 d-block d-sm-none">{% trans "Password dimenticata?" %}</a>
+            <a href="{% url 'auth_password_reset' %}" class="text-decoration-none float-right d-none d-sm-block">{% trans "Password dimenticata?" %}</a>
+          </div>          
+          <input type="submit" class="btn btn-lg btn-primary btn-block" value="{% trans 'Log in' %}">
+          <hr class="colorgraph">
+          <div class="mt-4">
+            <div class="d-flex justify-content-center">
+              {% trans "Non sei ancora Membro?" %} <a class="text-decoration-none ml-2" href="{% url 'registration_register' %}">{% trans "Registrati!" %}</a>
+            </div>
+          </div>          
+        </form>
+      </div>
+    </div>   
+  </div>
+</div>
+{% endblock %}
